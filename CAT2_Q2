@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+int main() {
+    
+    float hours_worked, hourly_wage;
+    
+    /* Input Section */
+    printf("Enter hours worked in a week: ");
+    scanf("%f", &hours_worked);
+
+    printf("Enter hourly wage: $");
+    scanf("%f", &hourly_wage);
+
+    /* Constants */
+    const float STANDARD_HOURS = 40.0;
+    const float OVERTIME_RATE = 1.5;
+    const float TAX_LIMIT = 600.0;
+    const float TAX_RATE_1 = 0.15;   /* 15% */
+    const float TAX_RATE_2 = 0.20;   /* 20% */
+
+    float regular_pay, overtime_pay = 0.0;
+    float gross_pay, total_tax, net_pay;
+
+    /* Gross Pay */
+    if (hours_worked <= STANDARD_HOURS) {
+        regular_pay = hours_worked * hourly_wage;
+    } else {
+        regular_pay = STANDARD_HOURS * hourly_wage;
+        overtime_pay = (hours_worked - STANDARD_HOURS) * hourly_wage * OVERTIME_RATE;
+    }
+
+    gross_pay = regular_pay + overtime_pay;
+
+    /* Tax Calculation */
+    if (gross_pay <= TAX_LIMIT) {
+        total_tax = gross_pay * TAX_RATE_1;
+    } else {
+        total_tax = (TAX_LIMIT * TAX_RATE_1) + ((gross_pay - TAX_LIMIT) * TAX_RATE_2);
+    }
+
+    /* Net Pay */
+    net_pay = gross_pay - total_tax;
+
+    /* Output */
+    printf("\n------------------------------\n");
+    printf("        Payroll Summary\n");
+    printf("------------------------------\n");
+    printf("Hours Worked: %.2f\n", hours_worked);
+    printf("Hourly Wage:  $%.2f\n", hourly_wage);
+    printf("Gross Pay:    $%.2f\n", gross_pay);
+    printf("Tax Deducted: $%.2f\n", total_tax);
+    printf("Net Pay:      $%.2f\n", net_pay);
+    printf("------------------------------\n");
+
+    return 0;
+}
